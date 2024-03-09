@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        .bg{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(196, 155, 235);
+        }
+        .container{
+            width: 700px;
+            height: 600px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 30px;
+        }
+        .searchbox{
+            margin-top: 100px;
+            margin-left: 50px;
+            width: 400px;
+            height: 70px;
+            border: none;
+            font-size: 30px;
+            border-bottom: 5px solid  rgb(196, 155, 235);
+
+        }
+        .searchbutton{
+            width: 130px;
+            height: 60px;
+            border: none;
+            color: azure;
+            font-size: 20px;
+            padding: 20px;
+            margin: 0;
+            background-color:  rgb(196, 155, 235);
+           
+            margin: 20px;
+        }
+
+        .display{
+            margin: 50px !important;
+            font-size: 40px;
+            
+        }
+        .meaning{
+            font-size: 30px;
+            margin: 50px;
+        }
+        .clear{
+           height: 57px;
+           width: 60px;
+           
+           background-color:  rgb(196, 155, 235);
+           color: white;
+           border: none;
+        }
+
+        @media screen and (max-width: 700px) {
+
+            .container{
+            width: 480px;
+            height: 700px;
+            }
+            .bg{
+            width: 100vw;
+            height: 100vh;
+           
+            }
+            .clear{
+                width: 45px;
+            }
+            .searchbox{
+                width: 250px;
+            }
+        .searchbutton{
+            width: 100px;
+            margin-left: 0;
+
+           
+        }
+        
+    }
+    @media screen and (max-width: 500px) {
+
+.container{
+width: 380px;
+height: 700px;
+}
+.bg{
+width: 100vw;
+height: 100vh;
+
+}
+.clear{
+    width: 45px;
+    height: 50px;
+padding: 10px;
+}
+.searchbox{
+    margin-left: 20px;
+    width: 200px;
+}
+.searchbutton{
+width: 83px;
+height: 50px;
+padding: 10px;
+margin-left: 0;
+
+
+}
+
+}
+@media screen and (max-width: 380px) {
+
+.container{
+width: 380px;
+height: 700px;
+}
+.bg{
+width: 100vw;
+height: 100vh;
+
+}
+.clear{
+    width: 40px;
+    height: 50px;
+    
+padding: 10px;
+}
+.searchbox{
+    margin-left: 20px;
+    width: 70vw;
+}
+.searchbutton{
+width: 80vw;
+height: 50px;
+padding: 10px;
+margin-left: 30px;
+
+
+}
+
+}
+
+        
+      
+       
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="container">
+            <div class="search">
+                <input class="searchbox" type="text" id="searchbox">
+                <!-- <button class="clear">X</button> -->
+                <button  class="clear">X</button>
+                <button class="searchbutton" id="searchbutton">search</button>
+                
+                <p class="display"></p>
+                <p class="meaning"></p>
+            </div>
+        </div>
+    </div>
+        
+    
+    
+
+    <script>
+       let clear = document.querySelector('.clear')
+        let input =  document.querySelector('.searchbox')
+        let  totalbox = document.querySelector('.search')
+        let display = document.querySelector('.display')
+       let meaning = document.querySelector('.meaning')
+        let searchbtn =  document.querySelector('.searchbutton')
+        searchbtn.addEventListener('click',(e)=>{
+       e.preventDefault()
+        display.innerHTML = input.value
+        dictionary(input.value)
+        
+      })
+
+      clear.addEventListener('click',(e)=>{
+       input.value = ''
+      })
+      
+       async function dictionary(value){
+        
+       let fetching =  await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${value}`)
+       let convertedintojson =await fetching.json()
+       store = convertedintojson[0].meanings[0].definitions[0].definition
+       
+       meaning.innerHTML = store
+       }
+    //  
+    </script>
+</body>
+</html>
